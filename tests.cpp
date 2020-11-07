@@ -8,6 +8,7 @@
 #include "estructuras_voidptr/list.h"
 #include "estructuras_voidptr/stack.h"
 #include "estructuras_voidptr/queue.h"
+#include "estructuras_voidptr/bintree.h"
 
 #define SIZE 100
 #define MAX 1000
@@ -125,7 +126,7 @@ int cmprobotptr(Robot_t const *rp1, Robot_t const *rp2)
  * The only "difference" is that this one does not need cast when using it with
  * cstdlib's qsort().  I find it weird though that C++ does not complain about
  * "implicit conversion of `void *` to `other pointer type`" when using the
- * former one `cmprobotprt` with qsort.  Because it seems that's what it is
+ * former one `cmprobotptr` with qsort.  Because it seems that's what it is
  * doing with the parameters when the function is executed.
 */
 int cmprobotptrv(void const *pv1, void const *pv2)
@@ -343,6 +344,67 @@ void queue_test()
     /* stack is empty at this point */
 }
 
+void squareintp(int *ip)
+{
+    *ip = *ip * *ip;
+}
+
+void bintree_test()
+{
+    void *bt;
+    int i, n;
+    int *ip, *ip2;
+    Robot_t *rp;
+
+    bintree_create(bt);
+    /* ints */
+    n = sizeof is / sizeof *is;
+    printf("Entry order:\n");
+    for (i = 0; i < n; i++) {
+        bintree_add(bt, alloc_int(is[i]), cmpintp);
+        printintp(&is[i]);
+    }
+    printf("bintree traversal:\n");
+    bintree_traverse(bt, (void (*)(void *))printintp);
+    bintree_traverse(bt, (void (*)(void *))squareintp);
+    printf("Square all nodes (intp):\n");
+    printf("bintree traversal (again):\n");
+    bintree_traverse(bt, (void (*)(void *))printintp);
+    /* I found and destroyed a bug on bintree_get  YAY!*/
+    ip = alloc_int(9);
+    printf("get pointer to elem that compares equal to *ip:\n");
+    ip2 = (int *) bintree_get(bt, ip, cmpintp);
+    if (!ip2) fprintf(stderr, "error: element *ip (%d) not found\n", *ip);
+    else printf("ip2 = %5d\n", *ip2);
+    if (ip == ip2) fprintf(stderr, "error: ip = ip2\n");
+    delete ip;
+    /* do not delete ip2 here.  Only delete bt alltogether */
+    /* How to assert that bintree_free efectivelly freed each node and element
+     * of the tree.  I can tell it works because it is a small function, but
+     * what to do with something more complex? */
+    bintree_free(bt, (void (*)(void *))delete_int);
+    if (bt) perror("bt does not point to NULL\n");
+
+    /* robots */
+    n = sizeof robotptrs / sizeof *robotptrs;
+    printf("Entry order:\n");
+    for (i = 0; i < n; i++) {
+        bintree_add(bt, robotptrs[i], 
+                (int (*)(void const *, void const *))cmprobotptr);
+        printrobotptr(robotptrs[i]);
+    }
+    printf("bintree traversal:\n");
+    bintree_traverse(bt, (void (*)(void *))printrobotptr);
+    rp = (Robot_t *) bintree_get(bt, robotptrs[3], 
+            (int (*)(void const *, void const *))cmprobotptr);
+    if (rp != robotptrs[3]) perror("rp no apunta a robot Rodriga :(\n");
+    printf("Retrieved pointer:\n");
+    if (rp) printrobot(*rp);
+    /* no deallocation this time because there wasn't an allocation to begin
+     * with */
+}
+    
+
 int main()
 {
 //    getsep_test();          // GOOD
@@ -356,5 +418,6 @@ int main()
 //    list_test();            // GOOD
 //    stack_test();           // GOOD
 //    queue_test();           // GOOD
+//    bintree_test();         // GOOD
     return 0;
 }

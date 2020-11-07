@@ -6,6 +6,8 @@
 #include "alloc.h"
 #include "sort.h"
 #include "estructuras_voidptr/list.h"
+#include "estructuras_voidptr/stack.h"
+#include "estructuras_voidptr/queue.h"
 
 #define SIZE 100
 #define MAX 1000
@@ -259,6 +261,88 @@ void list_test()
     list_create(l);
 }
 
+void stack_test()
+{
+    void *s;
+    int i, n;
+    int *ip;
+    Robot_t *rp;
+
+    stack_create(s);
+    /* ints */
+    n = sizeof is / sizeof *is;
+    for (i = 0; i < n; i++)
+        stack_push(s, alloc_int(is[i]));
+    for (i = 0; !stack_isempty(s); i++) {
+        ip = (int *) stack_pop(s);
+        printintp(ip);
+        delete_int(ip);
+    }
+
+    /* robots */
+    n = sizeof robotptrs / sizeof *robotptrs;
+    printf("Entry order:\n");
+    for (i = 0; i < n; i++) {
+        printrobotptr(robotptrs[i]);
+        stack_push(s, robotptrs[i]);
+    }
+    printf("Now this robot is at the top of the stack!:\n");
+    printrobotptr((Robot_t *)stack_top(s));
+    printf("Exit order:\n");
+    for (i = 0; !stack_isempty(s); i++) {
+        printrobotptr((Robot_t *)stack_pop(s));
+    }
+
+    /* stack is empty at this point */
+}
+
+void printdoublep(double *dp)
+{
+    printf("%10.3g\n", *dp); // +7, g <3
+}
+
+void delete_double(double *dp)
+{
+    delete dp;
+}
+
+void queue_test()
+{
+    void *q;
+    int i, n;
+    double *dp;
+
+    queue_create(q);
+    /* doubles */
+    n = sizeof ds / sizeof *ds;
+    for (i = 0; i < n; i++)
+        queue_push(q, alloc_double(ds[i]));
+    for (i = 0; !queue_isempty(q); i++) {
+        dp = (double *)queue_pop(q);
+        printdoublep(dp);
+        delete_double(dp);
+    }
+
+    /* robots */
+    n = sizeof robotptrs / sizeof *robotptrs;
+    printf("Entry order:\n");
+    for (i = 0; i < n; i++) {
+        printrobotptr(robotptrs[i]);
+        queue_push(q, robotptrs[i]);
+    }
+    printf("Now this robot is at the front of the queue!:\n");
+    printrobotptr((Robot_t *)queue_front(q));
+    printf("And this robot is at the back of the queue!:\n");
+    printrobotptr((Robot_t *)queue_back(q));
+    printf("Exit order:\n");
+    for (i = 0; !queue_isempty(q); i++) {
+        printrobotptr((Robot_t *)queue_pop(q));
+        /* no delete bc no alloc */
+    }
+
+    /* stack is empty at this point */
+}
+
 int main()
 {
 //    getsep_test();          // GOOD
@@ -270,5 +354,7 @@ int main()
 //        printf("doge\n"); 
     /* estructuras_voidptr */
 //    list_test();            // GOOD
+//    stack_test();           // GOOD
+//    queue_test();           // GOOD
     return 0;
 }

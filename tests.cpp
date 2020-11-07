@@ -349,6 +349,11 @@ void squareintp(int *ip)
     *ip = *ip * *ip;
 }
 
+void delete_nothing(void *p)
+{
+    /* :D */
+}
+
 void bintree_test()
 {
     void *bt;
@@ -400,8 +405,9 @@ void bintree_test()
     if (rp != robotptrs[3]) perror("rp no apunta a robot Rodriga :(\n");
     printf("Retrieved pointer:\n");
     if (rp) printrobot(*rp);
-    /* no deallocation this time because there wasn't an allocation to begin
-     * with */
+    /* just dealloc nodes */
+    bintree_free(bt, delete_nothing);
+    if (bt) perror("bt does not point to NULL\n");
 }
     
 

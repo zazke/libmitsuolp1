@@ -5,6 +5,9 @@
 # 	add foo.h to test.o dependencies
 # 	add line `foo.o : dependencies`
 
+# I don't know why but this does not add debug info to the executable.  Maybe
+# the *.o are not being compiled with `-g` flag.
+
 objects = nombres.o tabs.o tests.o input.o output.o alloc.o sort.o \
 	  estructuras_voidptr/list.o \
 	  estructuras_voidptr/stack.o \

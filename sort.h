@@ -46,7 +46,7 @@ int numcmp(char const *pch1, char const *pch2);
 /* These take pointer to pointer to object */
 
 int cmpstrp(const void *pv1, const void *pv2);
-int cmpint(void const *pv1, void const *pv2);
-int cmpdouble(void const *pv1, void const *pv2);
+int cmpintp(void const *pv1, void const *pv2);
+int cmpdoublep(void const *pv1, void const *pv2);
 
 #endif /* SORT_H */

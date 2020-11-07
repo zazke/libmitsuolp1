@@ -5,7 +5,8 @@
 # 	add foo.h to test.o dependencies
 # 	add line `foo.o : dependencies`
 
-objects = nombres.o tabs.o tests.o input.o output.o alloc.o sort.o
+objects = nombres.o tabs.o tests.o input.o output.o alloc.o sort.o \
+	  estructuras_voidptr/list.o
 
 a.out : $(objects)
 	g++ -o a.out -g -lm $(objects)
@@ -17,6 +18,7 @@ input.o : input.h
 output.o : output.h
 alloc.o : alloc.h
 sort.o : sort.h
+estructuras_voidptr/list.o : estructuras_voidptr/list.h
 
 .PHONY : clean
 clean :

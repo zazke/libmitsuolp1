@@ -83,7 +83,7 @@ int cmpstrp(const void *pv1, const void *pv2)
     return strcmp(*strp1, *strp2);
 }
 
-int cmpint(void const *pv1, void const *pv2)
+int cmpintp(void const *pv1, void const *pv2)
 {
     int const *icp1, *icp2;
 
@@ -92,7 +92,7 @@ int cmpint(void const *pv1, void const *pv2)
     return *icp1 - *icp2;
 }
 
-int cmpdouble(void const *pv1, void const *pv2)
+int cmpdoublep(void const *pv1, void const *pv2)
 {
     double const *dcp1, *dcp2;
 

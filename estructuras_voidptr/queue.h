@@ -30,6 +30,6 @@ void *queue_front(void *q);
 void *queue_back(void *q);
 
 /* traverses queue front to back (FIFO) */
-void queue_traverse(void *q, void (*f)(void *))
+void queue_traverse(void *q, void (*f)(void *));
 
 #endif /* ESTRUCTURAS_VOIDPTR_STACK_H */

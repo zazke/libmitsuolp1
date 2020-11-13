@@ -1,5 +1,5 @@
 #include <cstddef>   // NULL
-#include "stack.h"
+#include "queue.h"
 
 /* "ends[HEAD]": pointer to front node (NULL if queue empty)
  * "ends[TAIL]": pointer to back node (NULL if queue empty)
@@ -96,4 +96,17 @@ void *queue_back(void *q)
 
     if (!ends[HEAD]) return NULL;
     else return ((void **) ends[TAIL])[ELEM];
+}
+
+void queue_traverse(void *q, void (*f)(void *))
+{
+    void **ends = (void **)q;
+    void **node;
+    void *elem;
+    
+    node = (void **)ends[HEAD];
+    while (node) {
+        f(node[ELEM]);
+        node = (void **)node[NEXT];
+    }
 }

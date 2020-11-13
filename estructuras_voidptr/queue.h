@@ -29,4 +29,7 @@ void *queue_front(void *q);
 /* Access back (@tail) element.  Do not delete it please! */
 void *queue_back(void *q);
 
+/* traverses queue front to back (FIFO) */
+void queue_traverse(void *q, void (*f)(void *))
+
 #endif /* ESTRUCTURAS_VOIDPTR_STACK_H */

@@ -1,0 +1,9 @@
+# implement function definition from declaration in .h
+
+# Requirements:
+# .cpp has to be in left panel
+# cursor on function definition in .h
+# class name on register "c
+# there has to be at least one function already defined
+
+nnoremap <C-m> yyhG[[%op<<f(B"cPa::A€kb{}k

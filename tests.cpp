@@ -9,6 +9,12 @@
 #include "estructuras_voidptr/stack.h"
 #include "estructuras_voidptr/queue.h"
 #include "estructuras_voidptr/bintree.h"
+#include "estructuras_class/List.h"
+#include "estructuras_class/DoublyLinkedList.h"
+#include "estructuras_class/Stack.h"
+#include "estructuras_class/Queue.h"
+#include "estructuras_class/PriorityQueue.h"
+#include "estructuras_class/BST.h"
 
 #define SIZE 100
 #define MAX 1000
@@ -77,6 +83,10 @@ void alloc_test()
     for (i = 0; strs[i]; i++) {
         printf("%s\n", strs[i]);
     }
+    // free memory
+    for (i = 0; strs[i]; i++)
+        delete[] strs[i];
+    delete[] strs;
 }
 
 void Capitalize_test()
@@ -410,6 +420,82 @@ void bintree_test()
     if (bt) perror("bt does not point to NULL\n");
 }
     
+void List_test()
+{
+    List l;
+    
+    l.crear("./estructuras_class/testinput_List.txt");
+    l.print("./estructuras_class/testoutput_List.txt");
+    l.printr("./estructuras_class/testoutput2_List.txt");
+}
+
+void DoublyLinkedList_test()
+{
+    DoublyLinkedList l;
+    int i;
+
+    for (i = 0; i < 8; i++)
+        l.insert(rand()%100);
+    l.print();
+}
+
+void Stack_test()
+{
+    Stack s;
+    int i, in;
+
+    cout << "input order:\n";
+    for (i = 0; i < 8; i++) {
+        A a(in = rand()%100);
+        s.push(a);
+        cout << in << '\n';
+    }
+    cout << "retrival order (LIFO):\n";
+    for (i = 0; !s.isempty(); i++)
+        cout << s.pop();
+}
+
+void Queue_test()
+{
+    Queue q;
+    int i, in;
+
+    cout << "input order:\n";
+    for (i = 0; i < 8; i++) {
+        q.push_back(in = rand()%100);
+        cout << in << '\n';
+    }
+    cout << "retrival order (FIFO):\n";
+    for (i = 0; !q.isempty(); i++)
+        cout << q.pop_front() << '\n';
+}
+
+void PriorityQueue_test()
+{
+    PriorityQueue pq;
+    A a(42), a2(1, 8), a3(2, 8), a4(3, 8), a5(343, 0);
+
+    pq.push_back(a);
+    pq.push_back(a2);
+    pq.push_back(a3);
+    pq.push_back(a4);
+    pq.push_back(a5);
+
+    cout << "Retrival order (priority) (FIFO): \n";
+    while (!pq.isempty())
+        cout << pq.pop_front();
+}
+
+void BST_test()
+{
+    BST b;
+
+    int i;
+
+    for (i = 0; i < 8; i++)
+        b.insert(rand()%100);
+    b.print();
+}
 
 int main()
 {
@@ -425,5 +511,12 @@ int main()
 //    stack_test();           // GOOD
 //    queue_test();           // GOOD
 //    bintree_test();         // GOOD
+//    List_test();            // GOOD
+//    DoublyLinkedList_test();// GOOD
+//    Stack_test();           // GOOD
+//    Queue_test();           // GOOD
+//    PriorityQueue_test();   // GOOD
+    BST_test();
+    cout << "All tests done!\n";
     return 0;
 }

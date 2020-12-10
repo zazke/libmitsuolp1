@@ -51,16 +51,16 @@ char **alloc_strs(char **vt)  // t means temporal
     return v;
 }
 
-void **alloc_voidps(void **v)
+void **alloc_voidps(void **vt)
 {
     void **vpp;
     int i;
 
-    for (i = 0; v[i]; i++)
+    for (i = 0; vt[i]; i++)
         ;
     vpp = new void * [i + 1];
-    for (i = 0; v[i]; i++)
-        vpp[i] = v[i];
+    for (i = 0; vt[i]; i++)
+        vpp[i] = vt[i];
     vpp[i] = NULL;
     return vpp;
 }
@@ -79,18 +79,10 @@ char *alloc_str(char *s)
 
 int *alloc_int(int i)
 {
-    int *ip;
-
-    ip = new int;
-    *ip = i;
-    return ip;
+    return new int (i);
 }
 
 double *alloc_double(double d)
 {
-    double *dp;
-
-    dp = new double;
-    *dp = d;
-    return dp;
+    return new double (d);
 }

@@ -60,7 +60,7 @@ void swap(void *v[], int i, int j)
 }
 
 
-/* Comparison functions for K&R qsort  (and alse INF281 Guanira's ordenaG)
+/* Comparison functions for K&R qsort  (and also INF281 Guanira's ordenaG)
  * ======================================================================= */
 
 /* strcmp */

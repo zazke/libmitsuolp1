@@ -18,6 +18,7 @@
 #include "estructuras_class/PriorityQueue.h"
 #include "estructuras_class/BST.h"
 #include "estructuras_template/BST.h"
+#include "estructuras_template/Queue.h"
 
 #define SIZE 100
 #define MAX 1000
@@ -535,6 +536,22 @@ namespace tpl
             br.insert(robots[i]);
         br.print(cout);
     }
+
+    void Queue_test()
+    {
+        tpl::Queue<Robot_t> q;
+        int i; 
+        Robot_t in;
+
+        cout << "input order:\n";
+        for (i = 0; i < n_robots; i++) {
+            q.push_back(in = robots[i]);
+            cout << in << '\n';
+        }
+        cout << "retrival order (FIFO):\n";
+        for (i = 0; !q.isempty(); i++)
+            cout << q.pop_front() << '\n';
+    }
 }
 
 int main()
@@ -558,6 +575,7 @@ int main()
 //    PriorityQueue_test();   // GOOD
 //    BST_test();             // GOOD
 //    tpl::BST_test();        // GOOD
+    tpl::Queue_test();
     cout << "All tests done!\n";
     return 0;
 }

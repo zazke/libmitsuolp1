@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>     // print() for struct Robot
+#include <iomanip>      // print() for struct Robot
 #include "nombres.h"
 #include "input.h"
 #include "alloc.h"
@@ -15,6 +17,7 @@
 #include "estructuras_class/Queue.h"
 #include "estructuras_class/PriorityQueue.h"
 #include "estructuras_class/BST.h"
+#include "estructuras_template/BST.h"
 
 #define SIZE 100
 #define MAX 1000
@@ -32,8 +35,26 @@ struct Robot {
     int id;
     char name[SIZE];
     int year;
+    int operator<(Robot const &rhs);
 };
 typedef struct Robot Robot_t;
+
+int Robot::operator<(Robot const &rhs)
+{
+    return strcmp(name, rhs.name) < 0;
+}
+
+ostream &operator<<(ostream &os, Robot const &rhs)
+{
+    //printf("%3d %-40s %d\n", rhs.id, rhs.name, rhs.year);
+    /* begin of blOAt */
+    os << left;
+    os << setw(4) << rhs.id;
+    os << setw(40) << rhs.name;
+    os << rhs.year;
+    /* end of BlOAt */
+    return os;
+}
 
 Robot_t robots[4] = { 
     {5, "James", 2042}, 
@@ -497,6 +518,25 @@ void BST_test()
     b.print();
 }
 
+namespace tpl
+{
+    void BST_test()
+    {
+        tpl::BST<int> b;
+        tpl::BST<Robot_t> br;
+
+        int i;
+
+        for (i = 0; i < 8; i++)
+            b.insert(rand()%100);
+        b.print(cout);
+
+        for (i = 0; i < n_robots; i++)
+            br.insert(robots[i]);
+        br.print(cout);
+    }
+}
+
 int main()
 {
 //    getsep_test();          // GOOD
@@ -516,7 +556,8 @@ int main()
 //    Stack_test();           // GOOD
 //    Queue_test();           // GOOD
 //    PriorityQueue_test();   // GOOD
-    BST_test();
+//    BST_test();             // GOOD
+//    tpl::BST_test();        // GOOD
     cout << "All tests done!\n";
     return 0;
 }

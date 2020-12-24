@@ -25,7 +25,7 @@ objects = nombres.o tabs.o tests.o input.o output.o alloc.o sort.o \
 	  estructuras_class/A.o \
 	  estructuras_class/List.o \
 	  estructuras_class/Stack.o \
-	  estructuras_class/BST.o
+	  estructuras_class/BST.o \
 
 
 a.out : $(objects)

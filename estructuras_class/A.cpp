@@ -23,6 +23,13 @@ A::~A()
 {
 }
 
+std::istream &A::read(std::istream &is)
+{
+    is >> data;
+    priority = 8888;
+    return is;
+}
+
 std::ostream &A::print(std::ostream &os) const
 {
     os << data << " (" << priority << ")\n";
@@ -37,6 +44,11 @@ int A::operator<<(A const &rhs)
 int A ::operator<(A const &rhs)
 {
     return data < rhs.data;
+}
+
+std::istream &operator>>(std::istream &is, A &a)
+{
+    return a.read(is);
 }
 
 std::ostream &operator<<(std::ostream &os, A const &a)

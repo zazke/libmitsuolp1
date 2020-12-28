@@ -444,11 +444,22 @@ void bintree_test()
     
 void List_test()
 {
+    ifstream ifs("./estructuras_class/testinput_List.txt");
+//    ofstream ofs("./estructuras_class/testoutput_List.txt");
+//    ofstream ofs2("./estructuras_class/testoutput2_List.txt");
+
+//    if (ifs.fail() || ofs.fail() || ofs2.fail()) {
+    if (ifs.fail()) {
+        cerr << "error: bad filename\n";
+    }
+
     List l;
     
-    l.crear("./estructuras_class/testinput_List.txt");
-    l.print("./estructuras_class/testoutput_List.txt");
-    l.printr("./estructuras_class/testoutput2_List.txt");
+    l.crear(ifs);
+    cout << "orden creciente: \n";
+    l.print(cout);
+    cout << "orden decreciente: \n";
+    l.printr(cout);
 }
 
 void DoublyLinkedList_test()
@@ -554,6 +565,8 @@ namespace tpl
     }
 }
 
+/* a lot of function that use data structure implementations from this course
+ * leak memory,  comment them after testing them */
 int main()
 {
 //    getsep_test();          // GOOD
@@ -575,7 +588,7 @@ int main()
 //    PriorityQueue_test();   // GOOD
 //    BST_test();             // GOOD
 //    tpl::BST_test();        // GOOD
-    tpl::Queue_test();
+//    tpl::Queue_test();
     cout << "All tests done!\n";
     return 0;
 }

@@ -1,6 +1,8 @@
 #ifndef DLNODE_H
 #define DLNODE_H
 
+#include <iostream>
+
 namespace tpl
 {
 

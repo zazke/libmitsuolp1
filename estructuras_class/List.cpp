@@ -21,21 +21,16 @@ List::~List()
     }
 }
 
-void List::crear(const char *filename)
+void List::crear(std::istream &is)
 {
-    ifstream ifs(filename);
-    int i;
+    A a;
 
-    if (ifs.fail())
-        cerr << "error: no se pudo abrir archivo \"" << filename << "\"\n";
-
-    while (ifs >> i) {
-        A a(i);
+    while (is >> a) {
         insertar(a);
     }
 }
 
-void List::insertar(A data)
+void List::insertar(A & data)
 {
     SLNode *walk, *prev, *newnode;
 
@@ -55,31 +50,21 @@ void List::insertar(A data)
         head = newnode;
 }
 
-void List::print(const char *filename)
+void List::print(std::ostream &os)
 {
-    ofstream cout(filename);
     SLNode *walk;
 
-    if (cout.fail())
-        cerr << "error: no se pudo abrir archivo \"" << filename << "\"\n";
-
-    cout << "Datos de la lista: \n";
+    os << "Datos de la lista: \n";
     walk = head;
     while (walk) {
-        cout << walk->data;
+        os << walk->data;
         walk = walk->next;
     }
 }
 
-void List::printr(const char *filename)
+void List::printr(std::ostream &os)
 {
-    ofstream ofs(filename);
-
-    if (ofs.fail())
-        cerr << "error: no se pudo abrir archivo \"" << filename << "\"\n";
-    
-    ofs << "Datos de la lista (en reverso): \n";
-    printrp(ofs, head);
+    printrp(os, head);
 }
 
 void List::printrp(std::ostream &os, SLNode *walk)

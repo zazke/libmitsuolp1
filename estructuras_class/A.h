@@ -17,11 +17,13 @@ public:
     A(int i, int p);
     A(A const &orig);
     ~A();
+    std::istream &read(std::istream &is);
     std::ostream& print(std::ostream &os) const;
     int operator<<(A const &rhs);
     int operator<(A const &rhs);
 };
 
+std::istream &operator>>(std::istream &is, A &a);
 std::ostream &operator<<(std::ostream &os, A const &a);
 
 #endif /* ESTRUCTURAS_CLASS_A_H */
